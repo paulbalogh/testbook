@@ -1,0 +1,110 @@
++article("Equations", "with MathJax")
+  +section("Intro")
+    h1 Display Equations
+    p Check out: 
+      a(href='http://www.mathjax.org') mathjax.org
+      |  for documentation.
+    h2 Capitolul I: NUMERE REALE
+    div
+      .ex 
+        .nr.center-block 14. 
+        ol 
+          li Dacă a, b sunt numere raționale nenegative astfel încât $\sqrt{a} +\sqrt{b} \in \mathbb{Q} $ , atunci $\sqrt{a} \in \mathbb{Q} $și $\sqrt{b} \in \mathbb{Q} $ .
+          li Rezolvați în mulțimea numerelor naturale ecuația $ \sqrt{x} +\sqrt{y} =\sqrt{20} $. (O.L.M., Vrancea, 2009)
+ 
+      .ex 
+        .nr 15. 
+        ol
+          li Demonstrați că $\left(\sqrt{2x} +\sqrt{2x-1} \right)\left(\sqrt{2x+1} -\sqrt{2x} \right) < 1 $ pentru orice $ x \in \mathbb{N} ^{*}$. 
+          li Comparați numerele a și b dacă: 
+            | \[a=\left(\sqrt{2} +1\right)\left(\sqrt{3} -\sqrt{2} \right)\left(\sqrt{4} -\sqrt{3} \right)...\left(\sqrt{2013} -\sqrt{2012} \right),\] 
+            | iar 
+            | \[b=\left(\sqrt{2} -1\right)\left(\sqrt{3} +\sqrt{2} \right)\left(\sqrt{4} +\sqrt{3} \right)...\left(\sqrt{2013} +\sqrt{2012} \right).\] 
+      
+      .ex 
+        .nr 16. 
+        p Stabiliți dacă există numere reale x astfel încât $x+\sqrt{2} $ și $x^{3} +\sqrt{2} $ să fie simultan numere raționale.
+      .ex
+        .nr 17. 
+        p Un număr natural A este format din 10 cifre, astfel: trei din mulțimea $\{$0, 3, 6, 9$\}$, trei din mulțimea $\{$1, 4, 7$\}$ și patru cifre din mulțimea $\{$2, 5, 8$\}$. Demonstrați că $\sqrt{A} $$\in \mathbb{R} $ \ $ \mathbb{Q}$.
+      .ex
+        .nr 18.
+        ol
+          li Dacă $ n $ și $ k $ sunt numere naturale, verificați identitatea: 
+          | \[\frac{\sqrt{n+1} -\sqrt{n} +k}{k\left(\sqrt{n+1} +\sqrt{n} \right)+1} =\frac{1}{\sqrt{n+1} +\sqrt{n} } \] 
+          li Determinați $n \in \mathbb{N}$  pentru care S = 9, unde:
+          | \[S=\frac{\sqrt{n+1} -\sqrt{n} +1}{\sqrt{n+1} +\sqrt{n} +1} +\frac{\sqrt{n} -\sqrt{n-1} +2}{2\left(\sqrt{n} +\sqrt{n-1} \right)+1} +...+\frac{\sqrt{2} -1+n}{n\left(\sqrt{2} +1\right)-1} .\] 
+      .ex
+        .nr 19. 
+        p Dacă $ a $ și $ b $ sunt numere raționale astfel încât $a+b\sqrt{2} $$\neq$ 0, arătați că $a-b\sqrt{2} $$\neq$ 0.
+
+      .ex
+        .nr 20. 
+        p Calculați:
+        ol
+          li \[\frac{1}{2\sqrt{1} +1\sqrt{2} } +\frac{1}{3\sqrt{2} +2\sqrt{3} } +...+\frac{1}{(n+1)\sqrt{n} +n\sqrt{n+1} }, n \in  \mathbb{N} {}^{*} \]
+          li \[\sqrt{3-2\sqrt{2} } +\sqrt{5-2\sqrt{6} } +...+\sqrt{2n+1-2\sqrt{n(n+1)} }, n \in \mathbb{N} {}^{*} \]
+
+    h2 Capitolul II. CALCUL ALGEBRIC
+      
+    h3.red
+      span.label.label-danger.white PP
+      | Competențe specifice: 
+    ul
+      li Identificarea unor reguli de calcul numeric sau algebric pentru simplificarea unor calcule
+      li Identificarea, în exemple, în exerciții sau în probleme, a numerelor reale și a formulelor de calcul prescurtat 
+      li Deducerea și aplicarea formulelor de calcul prescurtat pentru optimizarea unor calcule
+      li Rezolvarea unor situații-problemă utilizând rapoarte de numere reale reprezentate prin litere; interpretarea rezultatului
+    h4 1. Operații cu numere reale reprezentate prin litere
+    p 
+      span.label.label-danger.white PE-PP 
+      | Utilizarea literelor în calcule conferă un mare grad de generalitate operațiilor, deoarece literele pot fi înlocuite cu orice numere reale dorim. Un termen al unei sume algebrice are două părți distincte:
+      ul
+        li <em>coeficientul</em>, format din numerele prezente în acel termen;
+        li <em>partea literală</em>, formată din literele prezente, fiecare cu exponentul său.
+    p Termenii care au partea literală identică se numesc termeni asemenea.
+    p Utilizând literele în calcule, putem efectua operațiile de adunare, scădere, înmulțire, împărțire, ridicare la putere, la final impunându-se reducerea termenilor asemenea. 
+
+    h4 Exerciții rezolvate 
+    .ex
+      .nr 1<sup>R</sub> 
+      p Efectuați:
+      ol
+        li $ 15x - 6y + 5y -10x $, unde $ x, y \in \mathbb{R} $ ; 
+          a.btn.btn-success.pull-right(href="#rezA", data-toggle="modal")
+            i.fa.fa-bullseye
+          +modal("rezA", "Rezultat")
+            p $ 15x - 6y + 5y - 10x = 5x - y $
+
+        li $ 8(x + 3y) - 6(4y - 2x)$, unde $ x, y \in \mathbb{R} $ ;
+          a.btn.btn-success.pull-right(href="#rezB", data-toggle="modal")
+            i.fa.fa-bullseye
+          +modal("rezB", "Rezultat")
+            p $ 8(x + 3y) - 6(4y - 2x) = 8x + 24y - 24y + 12x = 20x $
+
+        li $ (4xy ^{2}) \cdot (-2x ^{3} y)$, unde $x, y \in \mathbb{R}$ ; 
+          a.btn.btn-success.pull-right(href="#rezC", data-toggle="modal")
+            i.fa.fa-bullseye
+          +modal("rezC", "Rezultat")
+            p $ (4xy^{2}) \cdot (-2x^{3}y) = -8x^{4} y^{3} $
+
+        li $ \frac{16x ^{4} - 8x^{3} + 4x^{2}} {-2x}$, unde $ x \in \mathbb{R}^{*}$.
+          a.btn.btn-success.pull-right(href="#rezD", data-toggle="modal")
+            i.fa.fa-bullseye
+          +modal("rezD", "Rezultat")
+            p $ \frac{16x^{4} - 8x^{3} + 4x^{2}} {-2x} = \frac{16x^{4}} {-2x} - \frac{8x^{3} } {-2x} + \frac{4x^{2} }{-2x} = -8x^{3} + 4x^{2} - 2x $
+    .ex
+      .nr 2<sup>R</sup> 
+      p Fie $ A(x) = 1 + x + x^{2} + \dots + x^{99} $, unde $x$ este un număr real. Calculați $ (x - 1) \cdot A(x)$ și deduceți egalitatea $ 1 + 2 + \dots  + 2^{99} = 2^{100} - 1 $.
+        a.btn.btn-success.pull-right(href="#rezE", data-toggle="modal")
+          i.fa.fa-bullseye
+        +modal("rezE", "Rezultat")
+          p $ (x - 1) \cdot A(x) $
+            | $ = x \cdot A(x) - A(x) $
+            | $ = x(1 + x + x^{2} + \dots  + x^{99}) - (1 + x + x^{2} + \dots  + x^{99}) $ 
+            | $ = x + x^{2} + x^{3} + \dots  + x^{100} - 1 - x - x^{2} - \dots  - x^{99} $
+            | $ = x^{100} - 1. $
+          p Așadar, 
+          p $ (x - 1) \cdot A(x) = x^{100} - 1. (1) $
+          p Pentru $ x = 2 $ relația (1) devine $ (2 - 1) \cdot A(2) = 2^{100} - 1, $ adică $ A(2) = 2^{100} - 1 $. 
+          p Tinând cont de enunț, $ A(2) = 1 + 2 + \dots  + 2^{99}$, deci $ 1 + 2 + 2^{2} + \dots  + 2^{99} = 2^{100} - 1$.

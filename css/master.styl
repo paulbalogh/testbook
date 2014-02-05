@@ -4,6 +4,11 @@ lfa-framework()
 @import _colors
 @import jsxgraph
 
+// overwrite some general css elements
+
+h1, h2, h3, h4, h5
+  font-family: serif
+
 .bree
   font-family: 'Bree Serif'
 
@@ -19,11 +24,23 @@ lfa-framework()
 .merriweather
   font-family: Merriweather
 
+
+.welcome
+  background-color: black
+  h1
+    padding-left: 2em
+    padding-bottom: 2em
+
 .ex
   background-color: flat_clouds
   padding: 0.4em
   color: black
   margin-top: 1.8em
+  border-radius: 10px
+
+  &.conicsections
+    background-color: flat_wet_asphalt
+    color: white
 
   .nr
     font-family: Alegreya
@@ -41,6 +58,8 @@ lfa-framework()
 
     + p
       margin-top: 0
+  h1, h2, h3, h4
+    margin-top: 0px
 
   ol
     list-style-type: lower-latin

@@ -1,0 +1,24 @@
++article("Advanced graphs", "with Processing.js")
+  +section("Intro")
+    h1 Advanced Graphs
+    p see 
+      a(href='http://processing.org') Processing.js website.
+    .ex
+      .row
+        .col-sm-6
+          h3 Moving squares
+          //- p Moving the mouse changes the position and size of each box.
+          canvas#canvas1
+        .col-sm-6
+          h3 Tangent Circles
+          canvas#canvas2          
+    
+    .ex
+      .row
+        .col-sm-4
+          canvas#canvas3
+        .col-sm-8
+          p Move the mouse across the screen to change the position of the circles. The positions of the mouse are recorded into an array and played back every frame. Between each frame, the newest value are added to the end of each array and the oldest value is deleted.
+
+    .ex
+      canvas#canvas4

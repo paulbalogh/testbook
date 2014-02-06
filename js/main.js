@@ -17,6 +17,7 @@ define([
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 
+  // Important pentru că ține pătrat box-ul în care apare graphul pornind de la lățimea părintelui.
   var $boxes = $('.jxgbox');
   $boxes.each(function(index, box) {
     var $box = $(box);
@@ -412,6 +413,13 @@ define([
     board.update();
   })();
 
+  //Try a triangle
+  var board = JXG.JSXGraph.initBoard('triunghiulnostru', {boundingbox: [-10, 10, 10, -10], showCopyright: false, showNavigation: false});
+  var p1 = board.create('point', [0.0, 2.0]);
+  var p2 = board.create('point', [2.0, 1.0]);
+  var p3 = board.create('point', [4.0, 6.0]);
+  // var p4 = board.create('point', [1.0, 3.0]);
 
+  var pol = board.create('polygon', [p1, p2, p3]);
 
 });

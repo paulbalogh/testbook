@@ -582,9 +582,12 @@ define([
         var origY =  h/2;
         var stat =  1;
         function setup() {
-          $p.size(w, h); $p.frameRate(30);
+          $p.size(w, h); 
+          $p.frameRate(10);
+          // $p.noLoop();
         }
         $p.setup = setup; 
+        
         function draw() {
           var newX =  $p.parseInt($p.random(10, w-10)); 
           var newY =  $p.parseInt($p.random(10, h-10)); 
@@ -592,7 +595,9 @@ define([
           $p.stroke($p.parseInt($p.random(0, 255)), $p.parseInt($p.random(0, 255)), $p.parseInt($p.random(0, 255)), $p.parseInt($p.random(30, 255)));
 
         }
+        for (var i=0; i<3; i++){
           $p.draw = draw;
+        }
         function mousePressed() {
           $p.background($p.parseInt($p.random(0, 255)), $p.parseInt($p.random(0, 255)), $p.parseInt($p.random(0, 255))); // 
           origX = $p.parseInt($p.random(10,w-10)); // 
@@ -608,7 +613,8 @@ define([
     $p.mousePressed = mousePressed;
     function keyPressed() {
       if (stat == 1) {
-        $p.noLoop(); stat = 0;
+        $p.noLoop(); 
+        stat = 0;
       } else {
         $p.loop(); stat = 1;
       }
@@ -617,6 +623,54 @@ define([
     })
   )
 
+  }
+
+  // Processing Fractal tree
+  if (document.getElementById("canvas5")) {
+    var canvas = document.getElementById("canvas5")
+    var processingInstance = new Processing(canvas, 
+      (function($p) {
+
+        var theta = 0; 
+        function setup() {
+          $p.width = $("#canvas5").parent().width()
+          $p.height = $("#canvas5").parent().width()
+          
+          // $p.size(w, h); 
+          $p.smooth();
+        }
+        $p.setup = setup;function draw() {
+          $p.background(0); 
+          $p.frameRate(30); 
+          $p.stroke(255); 
+          var a =  ($p.mouseX /  $p.width) * 90; 
+          theta = $p.radians(a); 
+          var size = $p.width/4
+          $p.translate($p.width/2,$p.height); 
+          $p.line(0,0,0,-size); 
+          $p.translate(0,-size); branch(size);
+        }
+        $p.draw = draw;
+        function branch(h) {
+          h *= 0.66; 
+          if (h > 2) {
+            $p.pushMatrix(); 
+            $p.rotate(theta); 
+            $p.line(0,0,0,-h); 
+            $p.translate(0,-h); 
+            branch(h); 
+            $p.popMatrix(); 
+            $p.pushMatrix(); 
+            $p.rotate(-theta); 
+            $p.line(0,0,0,-h); 
+            $p.translate(0,-h); 
+            branch(h); 
+            $p.popMatrix();
+          }
+        }
+        $p.branch = branch;
+      })
+    )
   }
 
 });

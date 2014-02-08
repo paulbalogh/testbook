@@ -1,0 +1,44 @@
++article("Animated Gifs")
+  +section("Intro")
+    h1 Animated Gifs
+    p click to start / stop the animation (can get you dizzy)
+
+    mixin gif(srcStatic, srcAnimated)
+      .toggle-gif
+        img.static(src=srcStatic, data-state="static", data-src-static=srcStatic, data-src-animated=srcAnimated)
+        i.fa.fa-play-circle.fa-stack-2x
+    
+    .ex
+      +gif('img/animated/tor.jpg', 'img/animated/tor.gif')
+    
+    .ex
+      .row
+        .col-sm-6
+          +gif('img/animated/bicycle.jpg', 'img/animated/bicycle.gif')
+        .col-sm-6
+          +gif('img/animated/2222.jpg', 'img/animated/2222.gif')
+    .ex
+      .row
+        .col-sm-6
+          +gif('img/animated/bubble.jpg', 'img/animated/bubble.gif')
+        .col-sm-6
+          +gif('img/animated/colored-sphere.jpg', 'img/animated/colored-sphere.gif')
+    .ex
+      .row
+        .col-sm-6
+          +gif('img/animated/creepy.jpg', 'img/animated/creepy.gif')
+        .col-sm-6
+          +gif('img/animated/Hypnotic-Coil.jpg', 'img/animated/Hypnotic-Coil.gif')
+    .ex
+      .row
+        .col-sm-6
+          +gif('img/animated/pyramid.jpg', 'img/animated/pyramid.gif')
+        .col-sm-6
+          +gif('img/animated/swirl.jpg', 'img/animated/swirl.gif')
+    .ex
+      .row    
+        .col-sm-6
+          +gif('img/animated/trippy.jpg', 'img/animated/trippy.gif')
+        .col-sm-6
+          +gif('img/animated/water-bubble.jpg', 'img/animated/water-bubble.gif')
+        

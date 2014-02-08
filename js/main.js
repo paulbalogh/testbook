@@ -6,7 +6,9 @@ define([
   // Include Wolfram CDF Player
   'http://www.wolfram.com/cdf-player/plugin/v2.1/cdfplugin.js',
   // Processing.js 
-  '../../js/processing-1.4.1.min'
+  '../../js/processing-1.4.1.min',
+  // Two.js
+  '../../js/two.min'
 ], function(){
   MathJax.Hub.Config({
     extensions: ["tex2jax.js"],
@@ -584,7 +586,7 @@ define([
         function setup() {
           $p.size(w, h); 
           $p.frameRate(10);
-          // $p.noLoop();
+          $p.noLoop();
         }
         $p.setup = setup; 
         
@@ -595,9 +597,7 @@ define([
           $p.stroke($p.parseInt($p.random(0, 255)), $p.parseInt($p.random(0, 255)), $p.parseInt($p.random(0, 255)), $p.parseInt($p.random(30, 255)));
 
         }
-        for (var i=0; i<3; i++){
-          $p.draw = draw;
-        }
+        $p.draw = draw;
         function mousePressed() {
           $p.background($p.parseInt($p.random(0, 255)), $p.parseInt($p.random(0, 255)), $p.parseInt($p.random(0, 255))); // 
           origX = $p.parseInt($p.random(10,w-10)); // 
@@ -632,19 +632,23 @@ define([
       (function($p) {
 
         var theta = 0; 
+        var f = $p.createFont("Arial",24,true);
         function setup() {
           $p.width = $("#canvas5").parent().width()
           $p.height = $("#canvas5").parent().width()
           
-          // $p.size(w, h); 
           $p.smooth();
         }
-        $p.setup = setup;function draw() {
+        $p.setup = setup;
+        function draw() {
           $p.background(0); 
           $p.frameRate(30); 
           $p.stroke(255); 
           var a =  ($p.mouseX /  $p.width) * 90; 
           theta = $p.radians(a); 
+          // console.log(a);
+          $p.textFont(f, 22);
+          $p.text(Math.ceil(a)+'°', ($p.width/2)-10, 50);
           var size = $p.width/4
           $p.translate($p.width/2,$p.height); 
           $p.line(0,0,0,-size); 
@@ -672,5 +676,185 @@ define([
       })
     )
   }
+
+  // Working example with Two.js
+  if (document.getElementById('twojs-example')) {
+    // var elem = document.getElementById('twojs-example').children[0];
+    
+    // var params = { width: 285, height: 200 };
+    // var two = new Two(params).appendTo(elem);
+
+    // // two has convenience methods to create shapes.
+    // var circle = two.makeCircle(72, 100, 50);
+    // var rect = two.makeRectangle(213, 100, 100, 100);
+
+    // // The object returned has many stylable properties:
+    // circle.fill = '#FF8000';
+    // circle.stroke = 'orangered'; // Accepts all valid css color
+    // circle.linewidth = 5;
+
+    // rect.fill = 'rgb(0, 200, 255)';
+    // rect.opacity = 0.75;
+    // rect.noStroke();
+
+    // // Don't forget to tell two to render everything
+    // // to the screen
+    // two.update();
+
+
+    $(function() {
+
+      createGrid();
+
+      var two = new Two({
+        fullscreen: true,
+        autostart: true
+      }).appendTo(document.getElementById("twojs-example"));
+
+      var x, y, line, mouse = new Two.Vector(), randomness = 2;
+
+      var drag = function(e) {
+        x = e.clientX;
+        y = e.clientY;
+        if (!line) {
+          var v1 = makePoint(mouse);
+          var v2 = makePoint(x, y);
+          line = two.makeCurve([v1, v2], true);
+          line.noFill().stroke = '#333';
+          line.linewidth = 10;
+          _.each(line.vertices, function(v) {
+            v.addSelf(line.translation);
+          });
+          line.translation.clear();
+        } else {
+          var v1 = makePoint(x, y);
+          line.vertices.push(v1);
+        }
+        mouse.set(x, y);
+      };
+
+      var dragEnd = function(e) {
+        $(window)
+          .unbind('mousemove', drag)
+          .unbind('mouseup', dragEnd);
+      };
+
+      var touchDrag = function(e) {
+        e.preventDefault();
+        var touch = e.originalEvent.changedTouches[0];
+        drag({
+          clientX: touch.pageX,
+          clientY: touch.pageY
+        });
+        return false;
+      };
+
+      var touchEnd = function(e) {
+        e.preventDefault();
+        $(window)
+          .unbind('touchmove', touchDrag)
+          .unbind('touchend', touchEnd);
+        return false;
+      };
+
+      $(window)
+        .bind('mousedown', function(e) {
+          mouse.set(e.clientX, e.clientY);
+          line = null;
+          $(window)
+            .bind('mousemove', drag)
+            .bind('mouseup', dragEnd);
+        })
+        .bind('touchstart', function(e) {
+          e.preventDefault();
+          var touch = e.originalEvent.changedTouches[0];
+          mouse.set(touch.pageX, touch.pageY);
+          line = null;
+          $(window)
+            .bind('touchmove', touchDrag)
+            .bind('touchend', touchEnd);
+          return false;
+        });
+
+      two.bind('update', function(frameCount, timeDelta) {
+        _.each(two.scene.children, function(child) {
+          _.each(child.vertices, function(v) {
+            if (!v.position) {
+              return;
+            }
+            v.x = v.position.x + (Math.random() * randomness - randomness / 2);
+            v.y = v.position.y + (Math.random() * randomness - randomness / 2);
+          });
+        });
+      });
+
+      function makePoint(x, y) {
+
+        if (arguments.length <= 1) {
+          y = x.y;
+          x = x.x;
+        }
+
+        var v = new Two.Vector(x, y);
+        v.position = new Two.Vector().copy(v);
+
+        return v;
+
+      }
+
+      function createGrid(s) {
+
+        var size = s || 30;
+        var two = new Two({
+          type: Two.Types.canvas,
+          width: size,
+          height: size
+        });
+
+        var a = two.makeLine(two.width / 2, 0, two.width / 2, two.height);
+        var b = two.makeLine(0, two.height / 2, two.width, two.height / 2);
+        a.stroke = b.stroke = '#6dcff6';
+
+        two.update();
+
+        _.defer(function() {
+          $(document.getElementById("twojs-example")).css({
+            background: 'url(' + two.renderer.domElement.toDataURL('image/png') + ') 0 0 repeat',
+            backgroundSize: size + 'px ' + size + 'px'
+          });
+        });
+
+      }
+
+    });
+  }
+
+  // $(".toggle-gif").click(function () {
+  //   var $this = $(this);
+  //   if ($this.data("state") === "static") {
+  //     $this.data("state", "animated").attr("src", $this.data('src-animated'));
+  //     $this.attr("class", "toggle-gif dynamic");
+  //         } else {
+  //     $this.data("state", "static").attr("src", $this.data('src-static'));
+  //     $this.attr("class", "toggle-gif static");
+  //   }
+  // });
+
+  $(".toggle-gif").click(function () {
+    var $this = $(this);
+    var $img = $('img', $this);
+    var $icon = $('i', $this);
+    if ($img.data("state") === "static") {
+      $img.data("state", "animated").attr("src", $img.data('src-animated'));
+      $img.attr("class", "toggle-gif dynamic");
+      $icon.hide();
+      // $this.parent().append($newspan);
+    } else {
+      $img.data("state", "static").attr("src", $img.data('src-static'));
+      $img.attr("class", "toggle-gif static");
+      $icon.show();
+    }
+  });
+
 
 });

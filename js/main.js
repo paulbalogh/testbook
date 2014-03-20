@@ -3,28 +3,29 @@ define([
   'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML',
   // Include JSXGraph (locally, small, 511KB)
   '../../js/jsxgraphcore',
-  // Include Wolfram CDF Player
-  'http://www.wolfram.com/cdf-player/plugin/v2.1/cdfplugin.js',
   // Processing.js 
   '../../js/processing-1.4.1.min',
   // Two.js
   '../../js/two.min'
 ], function(){
-
+  window.firstRender = window.firstRender || true;
   return function(){
-    
-    console.log('Hello Greg!');
-
-    MathJax.Hub.Config({
-      extensions: ["tex2jax.js"],
-      jax: ["input/TeX", "output/HTML-CSS"],
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-        processEscapes: true
-      },
-      "HTML-CSS": { availableFonts: ["TeX"] }
-    });
+    if (window.firstRender) {
+      window.firstRender = false;
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          processEscapes: true
+        },
+        "HTML-CSS": { availableFonts: ["TeX"] }
+      });
+    } else {
+      console.log('whatever render');
+      MathJax.Hub.Typeset();
+    }
 
     // Important pentru că ține pătrat box-ul în care apare graphul pornind de la lățimea părintelui.
     var $boxes = $('.jxgbox');

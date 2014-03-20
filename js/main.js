@@ -13,7 +13,7 @@ define([
 
   return function(){
     
-    console.log('hello');
+    console.log('Hello Greg!');
 
     MathJax.Hub.Config({
       extensions: ["tex2jax.js"],
